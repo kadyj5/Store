@@ -1,4 +1,4 @@
-package pl.edu.wszib.store.database;
+package store.database;
 
 public class ProductsDB {
 
