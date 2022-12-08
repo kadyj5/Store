@@ -1,6 +1,7 @@
 package pl.edu.wszib.store.gui;
 
 import pl.edu.wszib.store.database.UserDB;
+import pl.edu.wszib.store.engine.Authenticator;
 import pl.edu.wszib.store.entity.User;
 
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class GUI {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static int chosnenOption;
+
     public static int showMenu(){
         System.out.print("""
                 1. Sign up
@@ -16,13 +17,13 @@ public class GUI {
                 3. Exit
                 Choose option #\s""");
 
-        chosnenOption = scanner.nextInt();
+        int chosnenOption = scanner.nextInt();
         scanner.nextLine();
 
-        if(chosnenOption < 1 && chosnenOption > 3) {
-            throw new IllegalStateException("Unexpected value: " + chosnenOption);
-        } else {
+        if(chosnenOption >= 1 && chosnenOption <= 3) {
             return chosnenOption;
+        } else {
+            throw new IllegalStateException("Unexpected value: " + chosnenOption);
         }
     }
 
@@ -39,10 +40,13 @@ public class GUI {
     }
 
     public static void logging(){
+        User user = new User();
         System.out.println("Hello again!");
         System.out.println("Login:");
-        String login = scanner.nextLine();
-        UserDB.checkLogin(login);
+        user.setLogin(scanner.nextLine());
+        System.out.println("Login:");
+        user.setPassword(scanner.nextLine());
+        Authenticator.authenticate(user, UserDB.getUsersDB());
 
     }
 }
