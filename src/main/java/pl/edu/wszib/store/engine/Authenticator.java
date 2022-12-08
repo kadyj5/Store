@@ -7,20 +7,32 @@ import pl.edu.wszib.store.entity.User;
 import java.util.List;
 
 public class Authenticator {
+    final UserDB userDB = UserDB.getInstance();
+    private User loggedUser = null;
+    private final String seed = "Mp@eI&1LEqCJ71HQQV0N1j2zqItr4&1W7*F";
+    private static final Authenticator instance = new Authenticator();
 
-    public static User loggedUser = null;
-    private static final String seed = "Mp@eI&1LEqCJ71HQQV0N1j2zqItr4&1W7*F";
+    private Authenticator() {
 
-    public static void authenticate(User user, List<User> users){
-        User userFromDB = UserDB.checkLogin(user.getLogin());
+    }
+    public void authenticate(User user) {
+        User userFromDB = this.userDB.findByLogin(user.getLogin());
         if(userFromDB != null &&
                 userFromDB.getPassword().equals(
-                        DigestUtils.md5Hex(user.getPassword() + seed))) {
-            loggedUser = userFromDB;
+                        DigestUtils.md5Hex(user.getPassword() + this.seed))) {
+            this.loggedUser = userFromDB;
         }
     }
 
-    public static String getHash(String password){
-        return DigestUtils.md5Hex(password + seed);
+    public static Authenticator getInstance() {
+        return instance;
+    }
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public String getSeed() {
+        return seed;
     }
 }
