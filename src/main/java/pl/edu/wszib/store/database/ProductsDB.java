@@ -23,6 +23,12 @@ public class ProductsDB {
         }
         return false;
     }
+    
+    public void changeQuantity(int productID, int addAmount){
+        for (Product product: this.products) {
+            product.setQuantity(product.getQuantity() + addAmount);
+        }
+    }
 
     public static ProductsDB getInstance() {
         return instance;

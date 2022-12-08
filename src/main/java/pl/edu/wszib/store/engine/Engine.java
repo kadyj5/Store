@@ -61,13 +61,16 @@ public class Engine {
                 case "4":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-
-//                        this.vehicleDB.addVehicle(this.gui.readNewVehicleData());
+                            this.productsDB.changeQuantity(gui.readProductID(), gui.readQuantity());
                         break;
                     }
                     // change role
                 case "5":
+                    if(this.authenticator.getLoggedUser() != null &&
+                            this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
 
+                        break;
+                    }
                     break;
                 default:
                     System.out.println("Wrong choose !!");

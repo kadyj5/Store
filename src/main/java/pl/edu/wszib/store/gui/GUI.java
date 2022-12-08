@@ -60,6 +60,14 @@ public class GUI {
             System.out.println("Product does not exist or is sold out");
         }
     }
+    public int readQuantity(){
+        int amountOfItems;
+        do{
+            System.out.println("How many you want to add?");
+            amountOfItems = Integer.parseInt(this.scanner.nextLine());
+        }while(amountOfItems < 0);
+        return amountOfItems;
+    }
 
     public void changeRole(){
 
