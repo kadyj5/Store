@@ -14,6 +14,16 @@ public class ProductsDB {
 
     }
 
+    public boolean buyProduct(int productID){
+        for(Product product : this.products){
+            if(product.getQuantity() != 0 && product.getProductID() == productID){
+                product.setQuantity(product.getQuantity() - 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static ProductsDB getInstance() {
         return instance;
     }

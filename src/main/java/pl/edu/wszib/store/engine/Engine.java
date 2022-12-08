@@ -19,9 +19,11 @@ public class Engine {
 
         while(!isRunning) {
             switch (this.gui.showMenu()){
+                // rejestracja
                 case "1":
                     System.out.println("Registration process");
                     break;
+                    // logowanie
                 case "2":
                     this.authenticator.authenticate(this.gui.readLoginAndPassword());
                     isRunning = this.authenticator.getLoggedUser() != null;
@@ -29,6 +31,7 @@ public class Engine {
                         System.out.println("No authorization !!");
                     }
                     break;
+                    // wyjscie z systemu
                     case "3":
                     System.out.println("Bye!");
                     break;
@@ -41,17 +44,20 @@ public class Engine {
         }
 
         while(isRunning) {
+            // listowania produktow
             switch(this.gui.showUserMenu()) {
                 case "1":
                     this.gui.listProducts();
                     break;
+                    // kupowania
                 case "2":
-//                    this.gui.showRentResult(this.vehicleDB.rentVehicle(this.gui.readPlate()));
+                    this.gui.showBuyResult(this.productsDB.buyProduct(gui.readProductID()));
                     break;
                 case "3":
                     isRunning = false;
                     System.out.println("Bye!");
                     break;
+                    // zmiana quantit
                 case "4":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
