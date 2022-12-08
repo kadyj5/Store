@@ -1,5 +1,12 @@
 package pl.edu.wszib.store.entity;
 
+import org.apache.commons.codec.cli.Digest;
+import org.apache.commons.codec.digest.DigestUtils;
+import pl.edu.wszib.store.engine.Authorization;
+
+import javax.naming.AuthenticationNotSupportedException;
+
+
 public class User {
     private String login;
     private String password;
@@ -27,7 +34,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {

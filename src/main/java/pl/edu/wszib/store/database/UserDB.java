@@ -16,7 +16,11 @@ public class UserDB {
         users.add(user);
     }
 
-    public static void checkLogin(String login) {
-        
+    public User checkLogin(String login) {
+        if(users.contains(login)) {
+            return users.get(users.indexOf(login));
+        } else {
+            return null;
+        }
     }
 }

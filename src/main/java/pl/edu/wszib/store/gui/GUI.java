@@ -1,5 +1,6 @@
 package pl.edu.wszib.store.gui;
 
+import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.entity.User;
 
 import java.util.Scanner;
@@ -14,16 +15,14 @@ public class GUI {
                 2. Sign in
                 3. Exit
                 Choose option #\s""");
-        // making sure that user put legal option:
-        chosnenOption = scanner.nextInt();
 
-        // getting rid of rest input that is not a number:
+        chosnenOption = scanner.nextInt();
         scanner.nextLine();
 
-        if(chosnenOption >= 1 && chosnenOption <=3) {
-            return chosnenOption;
-        } else {
+        if(chosnenOption < 1 && chosnenOption > 3) {
             throw new IllegalStateException("Unexpected value: " + chosnenOption);
+        } else {
+            return chosnenOption;
         }
     }
 
@@ -35,6 +34,7 @@ public class GUI {
         System.out.print("Choose your password:\s");
         user.setPassword(scanner.nextLine());
         System.out.println("Welcome!");
+        user.setRole("USER");
         return user;
     }
 
@@ -42,8 +42,7 @@ public class GUI {
         System.out.println("Hello again!");
         System.out.println("Login:");
         String login = scanner.nextLine();
-
-
+        UserDB.checkLogin(login);
 
     }
 }
