@@ -4,9 +4,7 @@ public class Product {
     private final String productName;
     private int quantity;
     private final String unitPrice;
-
     private final int productID;
-
 
     public Product(String productName, int quantity, String unitPrice, int productID) {
         this.productName = productName;
@@ -30,7 +28,6 @@ public class Product {
     public String getUnitPrice() {
         return unitPrice;
     }
-
 
     public int getProductID() {
         return productID;

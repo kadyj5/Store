@@ -3,7 +3,7 @@ package pl.edu.wszib.store.database;
 import pl.edu.wszib.store.entity.Product;
 
 public class ProductsDB {
-    private Product[] products = new Product[4];
+    private final Product[] products = new Product[4];
     private static final ProductsDB instance = new ProductsDB();
 
     public ProductsDB() {

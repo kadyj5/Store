@@ -6,7 +6,6 @@ import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.engine.Authenticator;
 import pl.edu.wszib.store.entity.Product;
 import pl.edu.wszib.store.entity.User;
-
 import java.util.Scanner;
 
 public class GUI {
@@ -68,24 +67,29 @@ public class GUI {
             System.out.println(user);
         }
     }
+
     public void listProducts() {
         for (Product product : this.productDB.getProducts()){
             System.out.println(product);
         }
     }
+
     public String readLogin(){
         System.out.println("Choose login");
         return this.scanner.nextLine();
     }
+
     public String readPassword(){
         System.out.println("Choose password");
         return this.scanner.nextLine();
     }
+
     public int readProductID(){
         listProducts();
         System.out.println("Choose ID");
         return Integer.parseInt(this.scanner.nextLine());
     }
+
     public int readQuantity(){
         System.out.println("How many do you want to add?");
         return Integer.parseInt(this.scanner.nextLine());
@@ -112,7 +116,6 @@ public class GUI {
         password = DigestUtils.md5Hex(password + Authenticator.getInstance().getSeed());
         return new User(login,password, User.Role.USER);
     }
-
 
     public static GUI getInstance() {
         return instance;

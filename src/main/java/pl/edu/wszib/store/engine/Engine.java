@@ -12,35 +12,31 @@ public class Engine {
     final GUI gui = GUI.getInstance();
     private static final Engine instance = new Engine();
 
-    private Engine() {
+    private Engine() { }
 
-    }
     public void start() {
         boolean isRunning = true;
         boolean isLogged = false;
 
         while(isRunning){
-            while(!isLogged) {
-                switch (this.gui.showMenu()){
-                    case "1":
+            while(!isLogged && isRunning) {
+                switch (this.gui.showMenu()) {
+                    case "1" -> {
                         System.out.println("Registration process...");
                         this.userDB.addUser(this.gui.readNewUser());
-                        break;
-                    case "2":
+                    }
+                    case "2" -> {
                         this.authenticator.authenticate(this.gui.readLoginAndPassword());
                         isLogged = this.authenticator.getLoggedUser() != null;
-                        if(!isLogged) {
+                        if (!isLogged) {
                             System.out.println("No authorization !!");
                         }
-                        break;
-                    case "3":
+                    }
+                    case "3" -> {
                         isRunning = false;
                         System.out.println("Exit");
-                        return;
-                    default:
-                        System.out.println("Wrong choice !!");
-                        break;
-
+                    }
+                    default -> System.out.println("Wrong choice !!");
                 }
 
             }

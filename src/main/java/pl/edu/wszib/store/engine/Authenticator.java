@@ -4,17 +4,13 @@ import org.apache.commons.codec.digest.DigestUtils;
 import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.entity.User;
 
-import java.util.List;
 
 public class Authenticator {
-    private UserDB userDB = UserDB.getInstance();
+    private final UserDB userDB = UserDB.getInstance();
     private User loggedUser = null;
     private final String seed = "Mp@eI&1LEqCJ71HQQV0N1j2zqItr4&1W7*F";
     private static final Authenticator instance = new Authenticator();
-
-    private Authenticator() {
-
-    }
+    private Authenticator() { }
     public void authenticate(User user) {
         User userFromDB = this.userDB.findByLogin(user.getLogin());
         if(userFromDB != null &&
