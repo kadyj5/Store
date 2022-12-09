@@ -59,7 +59,7 @@ public class GUI {
         if(result){
             System.out.println("Quantity updated");
         } else {
-            System.out.println("No such product");
+            System.out.println("No such product or given quantity is invalid");
         }
     }
 

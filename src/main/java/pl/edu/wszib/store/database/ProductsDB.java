@@ -25,15 +25,6 @@ public class ProductsDB {
         return null;
     }
 
-    public double countPrice(int quantity, int productID){
-        for(Product product : this.products) {
-            if(product.getProductID() == productID) {
-                return quantity * product.getUnitPrice();
-            }
-        }
-        return 0;
-    }
-    
     public boolean changeQuantity(int productID, int addAmount){
         for (Product product: this.products) {
             if(productID == product.getProductID() &&

@@ -1,9 +1,9 @@
 package pl.edu.wszib.store.entity;
 
 public class Product {
-    private  String productName;
+    private final String productName;
     private int quantity;
-    private  double unitPrice;
+    private final double unitPrice;
     private final int productID;
 
     public Product(String productName, int quantity, double unitPrice, int productID) {

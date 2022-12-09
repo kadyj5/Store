@@ -21,22 +21,27 @@ public class Engine {
         while(isRunning){
             while(!isLogged && isRunning) {
                 switch (this.gui.showMenu()) {
-                    case "1" -> {
+                    case "1":
                         System.out.println("Registration process...");
                         this.userDB.addUser(this.gui.readNewUser());
-                    }
-                    case "2" -> {
+                        break;
+
+                    case "2":
                         this.authenticator.authenticate(this.gui.readLoginAndPassword());
                         isLogged = this.authenticator.getLoggedUser() != null;
                         if (!isLogged) {
                             System.out.println("No authorization !!");
                         }
-                    }
-                    case "3" -> {
+                        break;
+
+                    case "3":
                         isRunning = false;
                         System.out.println("Exit");
-                    }
-                    default -> System.out.println("Wrong choice !!");
+                        break;
+
+                    default:
+                        System.out.println("Wrong choice !!");
+                        break;
                 }
 
             }
@@ -53,6 +58,7 @@ public class Engine {
                     case "3":
                         isLogged = false;
                         System.out.println("Logged out\n");
+                        this.authenticator.getUserLoggedOut();
                         break;
                     case "4":
                         if(this.authenticator.getLoggedUser() != null &&

@@ -36,7 +36,10 @@ public class UserDB {
 
     public void addUser(User user){
         User[] newUsers = new User[this.users.length + 1];
-        System.arraycopy(this.users, 0, newUsers, 0, this.users.length);
+//        System.arraycopy(this.users, 0, newUsers, 0, this.users.length);
+        for(int i = 0; i < this.users.length; i++) {
+            newUsers[i] = this.users[i];
+        }
         newUsers[newUsers.length - 1] = user;
         this.users = newUsers;
     }
