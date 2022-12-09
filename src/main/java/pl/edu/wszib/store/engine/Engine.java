@@ -47,7 +47,8 @@ public class Engine {
                         this.gui.listProducts();
                         break;
                     case "2":
-                        this.gui.showBuyResult(this.productsDB.buyProduct(gui.readProductID(), gui.readQuantity()));
+                        this.gui.showBuyResult(this.productsDB.buyProduct
+                                (gui.readProductID(), gui.readQuantity()));
                         break;
                     case "3":
                         isLogged = false;

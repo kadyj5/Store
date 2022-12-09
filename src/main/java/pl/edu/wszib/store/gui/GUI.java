@@ -38,9 +38,10 @@ public class GUI {
         return this.scanner.nextLine();
     }
 
-    public void showBuyResult(boolean result){
-        if(result){
+    public void showBuyResult(String priceForOrder){
+        if(priceForOrder != null){
             System.out.println("Buying completed successfully");
+            System.out.println("Price to Pay:\t" + priceForOrder );
         } else {
             System.out.println("Product does not exist or is sold out");
         }

@@ -7,22 +7,31 @@ public class ProductsDB {
     private static final ProductsDB instance = new ProductsDB();
 
     public ProductsDB() {
-        this.products[0] = new Product("Iphone 14 pro", 7, "6499.00 zl", 1);
-        this.products[1] = new Product("Ładowarka samochodowa", 2, "59.99 zl", 2);
-        this.products[2] = new Product("Kabel do ladowania Apple", 1, "100.00 zl", 3);
-        this.products[3] = new Product("Szklo hartowane", 3, "150.0 zl", 4);
+        this.products[0] = new Product("Iphone 14 pro", 7, 6499.00, 1);
+        this.products[1] = new Product("Ładowarka samochodowa", 2, 59.99, 2);
+        this.products[2] = new Product("Kabel do ladowania Apple", 1, 100.00, 3);
+        this.products[3] = new Product("Szklo hartowane", 3, 150.0, 4);
 
     }
 
-    public boolean buyProduct(int productID, int quantity){
+    public String buyProduct(int productID, int quantity){
         for(Product product : this.products){
             if(product.getProductID() == productID &&
                     (product.getQuantity() - quantity) >= 0){
                 product.setQuantity(product.getQuantity() - quantity);
-                return true;
+                return String.valueOf((quantity * product.getUnitPrice()));
             }
         }
-        return false;
+        return null;
+    }
+
+    public double countPrice(int quantity, int productID){
+        for(Product product : this.products) {
+            if(product.getProductID() == productID) {
+                return quantity * product.getUnitPrice();
+            }
+        }
+        return 0;
     }
     
     public boolean changeQuantity(int productID, int addAmount){

@@ -1,12 +1,12 @@
 package pl.edu.wszib.store.entity;
 
 public class Product {
-    private final String productName;
+    private  String productName;
     private int quantity;
-    private final String unitPrice;
+    private  double unitPrice;
     private final int productID;
 
-    public Product(String productName, int quantity, String unitPrice, int productID) {
+    public Product(String productName, int quantity, double unitPrice, int productID) {
         this.productName = productName;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
@@ -25,7 +25,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
