@@ -33,7 +33,7 @@ public class Engine {
                     break;
                     case "3":
                     System.out.println("Bye!");
-                    break;
+                    return;
                 default:
                     System.out.println("Wrong choice !!");
                     break;
@@ -57,22 +57,21 @@ public class Engine {
                 case "4":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-                            gui.showQuantityChangeResult(this.productsDB.changeQuantity(gui.readProductID(), gui.readQuantity()));
-                        break;
-                    }
+                            gui.showQuantityChangeResult(this.productsDB.changeQuantity
+                                    (gui.readProductID(), gui.readQuantity()));
+                    } else { System.out.println("Permission denied"); }
+                    break;
                 case "5":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
                         gui.showRoleChangeResult(this.userDB.changeRole(gui.readLogin()));
-                        break;
-                    }
+                    } else { System.out.println("Permission denied"); }
                     break;
                 case "6":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
                         this.gui.listUsers();
-                        break;
-                    }
+                    } else { System.out.println("Permission denied"); }
                     break;
                 default:
                     System.out.println("Wrong choose !!");
