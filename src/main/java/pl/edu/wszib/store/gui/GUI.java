@@ -1,5 +1,6 @@
 package pl.edu.wszib.store.gui;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import pl.edu.wszib.store.database.ProductsDB;
 import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.engine.Authenticator;
@@ -12,7 +13,6 @@ public class GUI {
     private final Scanner scanner = new Scanner(System.in);
     final Authenticator authenticator = Authenticator.getInstance();
     final ProductsDB productDB = ProductsDB.getInstance();
-
     final UserDB userDB = UserDB.getInstance();
     private static final GUI instance = new GUI();
 
@@ -41,7 +41,7 @@ public class GUI {
 
     public void showBuyResult(boolean result){
         if(result){
-            System.out.println("Product is bought");
+            System.out.println("Buying completed successfully");
         } else {
             System.out.println("Product does not exist or is sold out");
         }
@@ -77,21 +77,18 @@ public class GUI {
         System.out.println("Choose login");
         return this.scanner.nextLine();
     }
-
+    public String readPassword(){
+        System.out.println("Choose password");
+        return this.scanner.nextLine();
+    }
     public int readProductID(){
         listProducts();
         System.out.println("Choose ID");
         return Integer.parseInt(this.scanner.nextLine());
     }
-
-
     public int readQuantity(){
-        int amountOfItems;
-        do{
-            System.out.println("How many you want to add?");
-            amountOfItems = Integer.parseInt(this.scanner.nextLine());
-        }while(amountOfItems < 0);
-        return amountOfItems;
+        System.out.println("How many do you want to add?");
+        return Integer.parseInt(this.scanner.nextLine());
     }
 
     public User readLoginAndPassword() {
@@ -101,6 +98,19 @@ public class GUI {
         System.out.println("Password:");
         user.setPassword(this.scanner.nextLine());
         return user;
+    }
+
+    public User readNewUser(){
+        String login, password;
+        do{
+            login = readLogin();
+            if(this.userDB.findByLogin(login) != null){
+                System.out.println("This login is already used");
+            }
+        }while(this.userDB.findByLogin(login) != null);
+        password = readPassword();
+        password = DigestUtils.md5Hex(password + Authenticator.getInstance().getSeed());
+        return new User(login,password, User.Role.USER);
     }
 
 

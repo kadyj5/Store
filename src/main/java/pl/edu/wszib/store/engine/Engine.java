@@ -7,7 +7,6 @@ import pl.edu.wszib.store.gui.GUI;
 
 public class Engine {
     final ProductsDB productsDB = ProductsDB.getInstance();
-
     final UserDB userDB = UserDB.getInstance();
     final Authenticator authenticator = Authenticator.getInstance();
     final GUI gui = GUI.getInstance();
@@ -17,67 +16,73 @@ public class Engine {
 
     }
     public void start() {
-        boolean isRunning = false;
+        boolean isRunning = true;
+        boolean isLogged = false;
 
-        while(!isRunning) {
-            switch (this.gui.showMenu()){
-                case "1":
-                    System.out.println("Registration process");
-                    break;
-                case "2":
-                    this.authenticator.authenticate(this.gui.readLoginAndPassword());
-                    isRunning = this.authenticator.getLoggedUser() != null;
-                    if(!isRunning) {
-                        System.out.println("No authorization !!");
-                    }
-                    break;
+        while(isRunning){
+            while(!isLogged) {
+                switch (this.gui.showMenu()){
+                    case "1":
+                        System.out.println("Registration process...");
+                        this.userDB.addUser(this.gui.readNewUser());
+                        break;
+                    case "2":
+                        this.authenticator.authenticate(this.gui.readLoginAndPassword());
+                        isLogged = this.authenticator.getLoggedUser() != null;
+                        if(!isLogged) {
+                            System.out.println("No authorization !!");
+                        }
+                        break;
                     case "3":
-                    System.out.println("Bye!");
-                    return;
-                default:
-                    System.out.println("Wrong choice !!");
-                    break;
+                        isRunning = false;
+                        System.out.println("Exit");
+                        return;
+                    default:
+                        System.out.println("Wrong choice !!");
+                        break;
+
+                }
 
             }
 
-        }
-
-        while(isRunning) {
-            switch(this.gui.showUserMenu()) {
-                case "1":
-                    this.gui.listProducts();
-                    break;
-                case "2":
-                    this.gui.showBuyResult(this.productsDB.buyProduct(gui.readProductID()));
-                    break;
-                case "3":
-                    isRunning = false;
-                    System.out.println("Bye!");
-                    break;
-                case "4":
-                    if(this.authenticator.getLoggedUser() != null &&
-                            this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
+            while(isLogged) {
+                switch(this.gui.showUserMenu()) {
+                    case "1":
+                        this.gui.listProducts();
+                        break;
+                    case "2":
+                        this.gui.showBuyResult(this.productsDB.buyProduct(gui.readProductID()));
+                        break;
+                    case "3":
+                        isLogged = false;
+                        System.out.println("Logged out\n");
+                        break;
+                    case "4":
+                        if(this.authenticator.getLoggedUser() != null &&
+                                this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
                             gui.showQuantityChangeResult(this.productsDB.changeQuantity
                                     (gui.readProductID(), gui.readQuantity()));
-                    } else { System.out.println("Permission denied"); }
-                    break;
-                case "5":
-                    if(this.authenticator.getLoggedUser() != null &&
-                            this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-                        gui.showRoleChangeResult(this.userDB.changeRole(gui.readLogin()));
-                    } else { System.out.println("Permission denied"); }
-                    break;
-                case "6":
-                    if(this.authenticator.getLoggedUser() != null &&
-                            this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-                        this.gui.listUsers();
-                    } else { System.out.println("Permission denied"); }
-                    break;
-                default:
-                    System.out.println("Wrong choose !!");
-                    break;
+                        } else { System.out.println("Permission denied"); }
+                        break;
+                    case "5":
+                        if(this.authenticator.getLoggedUser() != null &&
+                                this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
+                            gui.showRoleChangeResult(this.userDB.changeRole(gui.readLogin()));
+                        } else { System.out.println("Permission denied"); }
+                        break;
+                    case "6":
+                        if(this.authenticator.getLoggedUser() != null &&
+                                this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
+                            this.gui.listUsers();
+                        } else { System.out.println("Permission denied"); }
+                        break;
+                    default:
+                        System.out.println("Wrong choose !!");
+                        break;
+                }
             }
         }
+
     }
 
     public static Engine getInstance() {

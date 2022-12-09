@@ -7,7 +7,7 @@ import pl.edu.wszib.store.entity.User;
 import java.util.List;
 
 public class Authenticator {
-    final UserDB userDB = UserDB.getInstance();
+    private UserDB userDB = UserDB.getInstance();
     private User loggedUser = null;
     private final String seed = "Mp@eI&1LEqCJ71HQQV0N1j2zqItr4&1W7*F";
     private static final Authenticator instance = new Authenticator();

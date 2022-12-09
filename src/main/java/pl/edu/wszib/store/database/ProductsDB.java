@@ -26,7 +26,8 @@ public class ProductsDB {
     
     public boolean changeQuantity(int productID, int addAmount){
         for (Product product: this.products) {
-            if(productID == product.getProductID()){
+            if(productID == product.getProductID() &&
+                    (product.getQuantity() + addAmount >=0)){
                 product.setQuantity(product.getQuantity() + addAmount);
                 return true;
             }
