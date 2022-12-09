@@ -24,10 +24,14 @@ public class ProductsDB {
         return false;
     }
     
-    public void changeQuantity(int productID, int addAmount){
+    public boolean changeQuantity(int productID, int addAmount){
         for (Product product: this.products) {
-            product.setQuantity(product.getQuantity() + addAmount);
+            if(productID == product.getProductID()){
+                product.setQuantity(product.getQuantity() + addAmount);
+                return true;
+            }
         }
+        return false;
     }
 
     public static ProductsDB getInstance() {

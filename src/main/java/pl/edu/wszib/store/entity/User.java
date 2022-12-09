@@ -42,4 +42,14 @@ public class User {
         ADMIN,
         USER
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("Login: ")
+                .append(this.login)
+                .append(" ")
+                .append(this.role)
+                .toString();
+    }
 }

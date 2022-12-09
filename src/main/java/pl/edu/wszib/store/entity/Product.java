@@ -1,9 +1,9 @@
 package pl.edu.wszib.store.entity;
 
 public class Product {
-    private String productName;
+    private final String productName;
     private int quantity;
-    private String unitPrice;
+    private final String unitPrice;
 
     private final int productID;
 
@@ -19,10 +19,6 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -33,10 +29,6 @@ public class Product {
 
     public String getUnitPrice() {
         return unitPrice;
-    }
-
-    public void setUnitPrice(String unitPrice) {
-        this.unitPrice = unitPrice;
     }
 
 

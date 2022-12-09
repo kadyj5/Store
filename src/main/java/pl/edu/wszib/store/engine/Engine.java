@@ -7,6 +7,8 @@ import pl.edu.wszib.store.gui.GUI;
 
 public class Engine {
     final ProductsDB productsDB = ProductsDB.getInstance();
+
+    final UserDB userDB = UserDB.getInstance();
     final Authenticator authenticator = Authenticator.getInstance();
     final GUI gui = GUI.getInstance();
     private static final Engine instance = new Engine();
@@ -19,11 +21,9 @@ public class Engine {
 
         while(!isRunning) {
             switch (this.gui.showMenu()){
-                // rejestracja
                 case "1":
                     System.out.println("Registration process");
                     break;
-                    // logowanie
                 case "2":
                     this.authenticator.authenticate(this.gui.readLoginAndPassword());
                     isRunning = this.authenticator.getLoggedUser() != null;
@@ -31,12 +31,11 @@ public class Engine {
                         System.out.println("No authorization !!");
                     }
                     break;
-                    // wyjscie z systemu
                     case "3":
                     System.out.println("Bye!");
                     break;
                 default:
-                    System.out.println("Wrong choose !!");
+                    System.out.println("Wrong choice !!");
                     break;
 
             }
@@ -44,12 +43,10 @@ public class Engine {
         }
 
         while(isRunning) {
-            // listowania produktow
             switch(this.gui.showUserMenu()) {
                 case "1":
                     this.gui.listProducts();
                     break;
-                    // kupowania
                 case "2":
                     this.gui.showBuyResult(this.productsDB.buyProduct(gui.readProductID()));
                     break;
@@ -57,18 +54,23 @@ public class Engine {
                     isRunning = false;
                     System.out.println("Bye!");
                     break;
-                    // zmiana quantit
                 case "4":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-                            this.productsDB.changeQuantity(gui.readProductID(), gui.readQuantity());
+                            gui.showQuantityChangeResult(this.productsDB.changeQuantity(gui.readProductID(), gui.readQuantity()));
                         break;
                     }
-                    // change role
                 case "5":
                     if(this.authenticator.getLoggedUser() != null &&
                             this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
-
+                        gui.showRoleChangeResult(this.userDB.changeRole(gui.readLogin()));
+                        break;
+                    }
+                    break;
+                case "6":
+                    if(this.authenticator.getLoggedUser() != null &&
+                            this.authenticator.getLoggedUser().getRole() == User.Role.ADMIN) {
+                        this.gui.listUsers();
                         break;
                     }
                     break;
