@@ -28,7 +28,9 @@ public class Authenticator {
         return loggedUser;
     }
 
-    public User getUserLoggedOut() {return loggedUser = null;}
+    public void getUserLoggedOut() {
+        loggedUser = null;
+    }
 
     public String getSeed() {
         return seed;

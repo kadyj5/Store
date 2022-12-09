@@ -19,14 +19,14 @@ public class GUI {
     }
 
     public String showMenu() {
-        System.out.println("1. Sign in");
+        System.out.println("\n1. Sign in");
         System.out.println("2. log in");
         System.out.println("3. Exit");
         return this.scanner.nextLine();
     }
 
     public String showUserMenu(){
-        System.out.println("1. List products");
+        System.out.println("\n1. List products");
         System.out.println("2. Buy products");
         System.out.println("3. Log out");
         if (this.authenticator.getLoggedUser() != null &&
@@ -49,7 +49,7 @@ public class GUI {
 
     public void showRoleChangeResult(boolean result){
         if(result){
-            System.out.println("User upgraded to ADMIN");
+            System.out.println("User upgraded to ADMIN or already an ADMIN");
         } else {
             System.out.println("No such user");
         }
@@ -86,7 +86,6 @@ public class GUI {
     }
 
     public int readProductID(){
-        listProducts();
         System.out.println("Choose ID");
         return Integer.parseInt(this.scanner.nextLine());
     }
@@ -106,15 +105,14 @@ public class GUI {
     }
 
     public User readNewUser(){
-        String login, password;
+        String login;
         do{
             login = readLogin();
             if(this.userDB.findByLogin(login) != null){
                 System.out.println("This login is already used");
             }
         }while(this.userDB.findByLogin(login) != null);
-        password = readPassword();
-        password = DigestUtils.md5Hex(password + Authenticator.getInstance().getSeed());
+        String password = DigestUtils.md5Hex(readPassword() + Authenticator.getInstance().getSeed());
         return new User(login,password, User.Role.USER);
     }
 

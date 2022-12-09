@@ -27,7 +27,7 @@ public class UserDB {
     public boolean changeRole(String login){
         for(User user : this.users){
             if(login.equals(user.getLogin())){
-                user.setRole(User.Role.ADMIN);
+                if(user.getRole() == User.Role.USER) { user.setRole(User.Role.ADMIN); }
                 return true;
             }
         }
@@ -36,10 +36,7 @@ public class UserDB {
 
     public void addUser(User user){
         User[] newUsers = new User[this.users.length + 1];
-//        System.arraycopy(this.users, 0, newUsers, 0, this.users.length);
-        for(int i = 0; i < this.users.length; i++) {
-            newUsers[i] = this.users[i];
-        }
+        System.arraycopy(this.users, 0, newUsers, 0, this.users.length);
         newUsers[newUsers.length - 1] = user;
         this.users = newUsers;
     }
