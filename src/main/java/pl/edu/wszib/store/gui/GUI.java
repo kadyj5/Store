@@ -91,7 +91,7 @@ public class GUI {
     }
 
     public int readQuantity(){
-        System.out.println("How many do you want to add?");
+        System.out.println("Give amount of this product:");
         return Integer.parseInt(this.scanner.nextLine());
     }
 

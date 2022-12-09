@@ -14,10 +14,11 @@ public class ProductsDB {
 
     }
 
-    public boolean buyProduct(int productID){
+    public boolean buyProduct(int productID, int quantity){
         for(Product product : this.products){
-            if(product.getQuantity() != 0 && product.getProductID() == productID){
-                product.setQuantity(product.getQuantity() - 1);
+            if(product.getProductID() == productID &&
+                    (product.getQuantity() - quantity) >= 0){
+                product.setQuantity(product.getQuantity() - quantity);
                 return true;
             }
         }
