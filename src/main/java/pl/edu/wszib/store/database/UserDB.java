@@ -2,6 +2,8 @@ package pl.edu.wszib.store.database;
 
 import pl.edu.wszib.store.entity.User;
 
+import java.util.Optional;
+
 
 public class UserDB {
     private User[] users = new User[2];
@@ -15,13 +17,13 @@ public class UserDB {
 
     }
 
-    public User findByLogin(String login) {
+    public Optional <User> findByLogin(String login) {
         for(User user : this.users) {
             if(user.getLogin().equals(login)) {
-                return user;
+                return Optional.of(user);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public boolean changeRole(String login){

@@ -6,6 +6,8 @@ import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.engine.Authenticator;
 import pl.edu.wszib.store.entity.Product;
 import pl.edu.wszib.store.entity.User;
+
+import java.util.Optional;
 import java.util.Scanner;
 
 public class GUI {
@@ -108,10 +110,10 @@ public class GUI {
         String login;
         do{
             login = readLogin();
-            if(this.userDB.findByLogin(login) != null){
+            if(this.userDB.findByLogin(login).isPresent()){
                 System.out.println("This login is already used");
             }
-        }while(this.userDB.findByLogin(login) != null);
+        }while(this.userDB.findByLogin(login).isPresent());
         String password = DigestUtils.md5Hex(readPassword() + Authenticator.getInstance().getSeed());
         return new User(login,password, User.Role.USER);
     }

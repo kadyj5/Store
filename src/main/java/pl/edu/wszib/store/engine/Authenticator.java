@@ -4,6 +4,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import pl.edu.wszib.store.database.UserDB;
 import pl.edu.wszib.store.entity.User;
 
+import java.util.Optional;
+
 
 public class Authenticator {
     private final UserDB userDB = UserDB.getInstance();
@@ -12,11 +14,13 @@ public class Authenticator {
     private static final Authenticator instance = new Authenticator();
     private Authenticator() { }
     public void authenticate(User user) {
-        User userFromDB = this.userDB.findByLogin(user.getLogin());
-        if(userFromDB != null &&
-                userFromDB.getPassword().equals(
-                        DigestUtils.md5Hex(user.getPassword() + this.seed))) {
-            this.loggedUser = userFromDB;
+        Optional <User> userBox = this.userDB.findByLogin(user.getLogin());
+        if(userBox.isPresent()){
+            User userFromDB = userBox.get();
+            if(userFromDB.getPassword().equals(
+                    DigestUtils.md5Hex(user.getPassword() + this.seed))) {
+                        this.loggedUser = userFromDB;
+            }
         }
     }
 
