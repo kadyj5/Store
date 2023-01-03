@@ -5,6 +5,7 @@ import pl.edu.wszib.store.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 
 public class UserDB {
@@ -19,22 +20,27 @@ public class UserDB {
     }
 
     public Optional <User> findByLogin(String login) {
-        for(User user : this.users) {
-            if(user.getLogin().equals(login)) {
-                return Optional.of(user);
-            }
-        }
-        return Optional.empty();
+        Stream<User> userStream = this.users.stream();
+        Optional<User> optionalUser = userStream.filter(user -> user.getLogin()
+                        .equals(login))
+                        .findFirst();
+        if(optionalUser.isPresent()) return optionalUser;
+        else return Optional.empty();
+
     }
 
     public boolean changeRole(String login){
-        for(User user : this.users){
-            if(login.equals(user.getLogin())){
-                if(user.getRole() == User.Role.USER) { user.setRole(User.Role.ADMIN); }
-                return true;
-            }
+        Stream<User> userStream = this.users.stream();
+        Optional<User> optionalUser = userStream.filter(user -> login.equals(user.getLogin()))
+                .filter(user -> user.getRole() == User.Role.USER)
+                .findFirst();
+        if(optionalUser.isPresent()) {
+            User user = this.users.get(this.users.indexOf(optionalUser.get()));
+            user.setRole(User.Role.ADMIN);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void addUser(User user){

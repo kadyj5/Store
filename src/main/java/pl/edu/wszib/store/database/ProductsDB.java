@@ -20,7 +20,7 @@ public class ProductsDB {
     }
 
     public String buyProduct(int productID, int quantity) {
-        Stream <Product> productStream = this.products.stream();
+        Stream<Product> productStream = this.products.stream();
         Optional<Product> productOptional = productStream.filter(product -> product.getProductID() == productID)
                 .filter(product -> product.getQuantity() - quantity >= 0)
                 .findFirst();
@@ -37,8 +37,7 @@ public class ProductsDB {
                 .findFirst();
         if (productOptional.isEmpty()) return false;
         else {
-            int i = this.products.indexOf(productOptional.get());
-            Product product = this.products.get(i);
+            Product product = this.products.get(this.products.indexOf(productOptional.get()));
             product.setQuantity((product.getQuantity() + addAmount));
             return true;
         }
