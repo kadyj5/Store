@@ -19,15 +19,16 @@ public class ProductsDB {
 
     }
 
-    public String buyProduct(int productID, int quantity) {
+    public int buyProduct(int productID, int quantity) {
         Stream<Product> productStream = this.products.stream();
         Optional<Product> productOptional = productStream.filter(product -> product.getProductID() == productID)
                 .filter(product -> product.getQuantity() - quantity >= 0)
                 .findFirst();
         if(productOptional.isPresent()){
             changeQuantity(productID, -quantity);
+            return (int) (quantity * productOptional.get().getUnitPrice());
         }
-        return String.valueOf(quantity * productOptional.get().getUnitPrice());
+        return 0;
     }
 
     public boolean changeQuantity(int productID, int addAmount) {

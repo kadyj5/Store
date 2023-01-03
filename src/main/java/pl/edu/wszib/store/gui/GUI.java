@@ -40,8 +40,8 @@ public class GUI {
         return this.scanner.nextLine();
     }
 
-    public void showBuyResult(String priceForOrder){
-        if(priceForOrder != null){
+    public void showBuyResult(int priceForOrder){
+        if(priceForOrder != 0){
             System.out.println("Buying completed successfully");
             System.out.println("Price to Pay:\t" + priceForOrder );
         } else {
