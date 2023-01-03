@@ -2,15 +2,18 @@ package pl.edu.wszib.store.database;
 
 import pl.edu.wszib.store.entity.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductsDB {
-    private final Product[] products = new Product[4];
+    private final List<Product> products = new ArrayList<>();
     private static final ProductsDB instance = new ProductsDB();
 
     public ProductsDB() {
-        this.products[0] = new Product("Iphone 14 pro", 7, 6499.00, 1);
-        this.products[1] = new Product("Ładowarka samochodowa", 2, 59.99, 2);
-        this.products[2] = new Product("Kabel do ladowania Apple", 1, 100.00, 3);
-        this.products[3] = new Product("Szklo hartowane", 3, 150.0, 4);
+        this.products.add(new Product("Iphone 14 pro", 7, 6499.00, 1));
+        this.products.add(new Product("Ładowarka samochodowa", 2, 59.99, 2));
+        this.products.add(new Product("Kabel do ladowania Apple", 1, 100.00, 3));
+        this.products.add(new Product("Szklo hartowane", 3, 150.0, 4));
 
     }
 
@@ -40,7 +43,7 @@ public class ProductsDB {
         return instance;
     }
 
-    public Product[] getProducts(){
+    public List<Product> getProducts(){
         return products;
     }
 }

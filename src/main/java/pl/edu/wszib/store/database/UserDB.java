@@ -8,7 +8,6 @@ import java.util.Optional;
 
 
 public class UserDB {
-//    private User[] users = new User[2];
     List<User> users = new ArrayList<>();
     private static final UserDB instance = new UserDB();
 
@@ -40,7 +39,6 @@ public class UserDB {
 
     public void addUser(User user){
         this.users.add(user);
-//        this.users = newUsers;
     }
 
     public static UserDB getInstance() {
