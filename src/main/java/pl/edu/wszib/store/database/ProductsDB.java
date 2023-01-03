@@ -4,6 +4,8 @@ import pl.edu.wszib.store.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ProductsDB {
     private final List<Product> products = new ArrayList<>();
@@ -17,26 +19,29 @@ public class ProductsDB {
 
     }
 
-    public String buyProduct(int productID, int quantity){
-        for(Product product : this.products){
-            if(product.getProductID() == productID &&
-                    (product.getQuantity() - quantity) >= 0){
-                product.setQuantity(product.getQuantity() - quantity);
-                return String.valueOf((quantity * product.getUnitPrice()));
-            }
+    public String buyProduct(int productID, int quantity) {
+        Stream <Product> productStream = this.products.stream();
+        Optional<Product> productOptional = productStream.filter(product -> product.getProductID() == productID)
+                .filter(product -> product.getQuantity() - quantity >= 0)
+                .findFirst();
+        if(productOptional.isPresent()){
+            changeQuantity(productID, -quantity);
         }
-        return null;
+        return String.valueOf(quantity * productOptional.get().getUnitPrice());
     }
 
-    public boolean changeQuantity(int productID, int addAmount){
-        for (Product product: this.products) {
-            if(productID == product.getProductID() &&
-                    (product.getQuantity() + addAmount >=0)){
-                product.setQuantity(product.getQuantity() + addAmount);
-                return true;
-            }
+    public boolean changeQuantity(int productID, int addAmount) {
+        Stream<Product> productStream = this.products.stream();
+        Optional<Product> productOptional = productStream.filter(product -> product.getProductID() == productID)
+                .filter(product -> product.getQuantity() + addAmount >= 0)
+                .findFirst();
+        if (productOptional.isEmpty()) return false;
+        else {
+            int i = this.products.indexOf(productOptional.get());
+            Product product = this.products.get(i);
+            product.setQuantity((product.getQuantity() + addAmount));
+            return true;
         }
-        return false;
     }
 
     public static ProductsDB getInstance() {
