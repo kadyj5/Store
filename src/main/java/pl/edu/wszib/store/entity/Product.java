@@ -1,6 +1,6 @@
 package pl.edu.wszib.store.entity;
 
-public class Product {
+public sealed class Product permits  Console, Phone{
     private final String productName;
     private int quantity;
     private final double unitPrice;
