@@ -7,7 +7,6 @@ import pl.edu.wszib.store.engine.Authenticator;
 import pl.edu.wszib.store.entity.Product;
 import pl.edu.wszib.store.entity.User;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 public class GUI {
@@ -40,7 +39,7 @@ public class GUI {
         return this.scanner.nextLine();
     }
 
-    public void showBuyResult(int priceForOrder){
+    public void showBuyResult(double priceForOrder){
         if(priceForOrder != 0){
             System.out.println("Buying completed successfully");
             System.out.println("Price to Pay:\t" + priceForOrder );

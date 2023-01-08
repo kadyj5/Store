@@ -1,13 +1,15 @@
 package pl.edu.wszib.store.entity;
 
-public sealed class Product permits  Console, Phone{
+public sealed class Product permits Electronic, Foodstuff {
     private final String productName;
+    private final String brand;
     private int quantity;
     private final double unitPrice;
     private final int productID;
 
-    public Product(String productName, int quantity, double unitPrice, int productID) {
+    public Product(String productName, String brand, int quantity, double unitPrice, int productID) {
         this.productName = productName;
+        this.brand = brand;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.productID = productID;
@@ -33,6 +35,9 @@ public sealed class Product permits  Console, Phone{
         return productID;
     }
 
+    public String getBrand() { return  brand; }
+
+
     @Override
     public String toString() {
         return new StringBuilder()
@@ -40,7 +45,9 @@ public sealed class Product permits  Console, Phone{
                 .append(this.getProductID())
                 .append("\t")
                 .append(this.getProductName())
-                .append(" Cena: ")
+                .append(" ")
+                .append(this.getBrand())
+                .append("\tCena: ")
                 .append(this.getUnitPrice())
                 .append(" Ilosc: ")
                 .append(this.getQuantity())

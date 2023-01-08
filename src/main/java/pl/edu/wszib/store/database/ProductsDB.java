@@ -1,5 +1,7 @@
 package pl.edu.wszib.store.database;
 
+import pl.edu.wszib.store.entity.Electronic;
+import pl.edu.wszib.store.entity.Foodstuff;
 import pl.edu.wszib.store.entity.Product;
 
 import java.util.ArrayList;
@@ -12,21 +14,22 @@ public class ProductsDB {
     private static final ProductsDB instance = new ProductsDB();
 
     public ProductsDB() {
-        this.products.add(new Product("Iphone 14 pro", 7, 6499.00, 1));
-        this.products.add(new Product("Ładowarka samochodowa", 2, 59.99, 2));
-        this.products.add(new Product("Kabel do ladowania Apple", 1, 100.00, 3));
-        this.products.add(new Product("Szklo hartowane", 3, 150.0, 4));
+        this.products.add(new Electronic("Iphone 14 pro", "Apple", 7, 6499.00, 1, "September 16, 2022"));
+        this.products.add(new Electronic("Ładowarka samochodowa","Motorola", 2, 59.99, 2,  "October 20, 2016"));
+        this.products.add(new Electronic("Kabel do ladowania lightning","Apple", 1, 100.00, 3,  "September 12, 2012"));
+        this.products.add(new Foodstuff("Przyprawa do pieczenia","Kamis", 25, 2.15, 4,  "15-12-2028", 42));
+        this.products.add(new Foodstuff("Ketchup 500ml","Heinz", 14, 6.99, 5,  "21-11-2024", 1));
 
     }
 
-    public int buyProduct(int productID, int quantity) {
+    public double buyProduct(int productID, int quantity) {
         Stream<Product> productStream = this.products.stream();
         Optional<Product> productOptional = productStream.filter(product -> product.getProductID() == productID)
                 .filter(product -> product.getQuantity() - quantity >= 0)
                 .findFirst();
         if(productOptional.isPresent()){
             changeQuantity(productID, -quantity);
-            return (int) (quantity * productOptional.get().getUnitPrice());
+            return (double) (quantity * productOptional.get().getUnitPrice());
         }
         return 0;
     }
